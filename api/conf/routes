@@ -1,0 +1,4 @@
+GET        /users           example.UsersController.index
+GET        /users/:name     example.UsersController.get(name: String)
+PUT        /users/:name     example.UsersController.put(name: String)
+DELETE     /users/:name     example.UsersController.delete(name: String)

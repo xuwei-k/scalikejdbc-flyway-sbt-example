@@ -1,0 +1,9 @@
+language: scala
+
+sudo: false
+
+before_script:
+  - mysql -e "CREATE DATABASE test;" -uroot
+
+script:
+  - sbt migrate domain/checkGeneratedCode compile test

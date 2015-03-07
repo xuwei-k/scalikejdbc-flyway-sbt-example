@@ -1,0 +1,1 @@
+alias migrate=;domain/createTestDatabase; migration/flywayMigrate; scalikejdbcGenAllForce; domain/dropTestDatabase
