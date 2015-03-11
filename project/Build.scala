@@ -11,12 +11,13 @@ object build extends Build {
 
   private val defaultSchema = "schema_" + System.currentTimeMillis
   val databaseSchema = SettingKey[String]("databaseSchema")
+  private val host = "localhost"
 
   private val jdbcSettings = Def.setting{
     val schema = databaseSchema.value
     SbtPlugin.JDBCSettings(
       driver = "com.mysql.jdbc.Driver",
-      url = s"jdbc:mysql://localhost/$schema",
+      url = s"jdbc:mysql://$host/$schema",
       username = "root",
       password = "",
       schema = schema 
@@ -52,18 +53,6 @@ object build extends Build {
           sql.map(_.string(1)).list().apply().foreach(println)
         }
       },
-      TaskKey[Unit]("createTestDatabase") := {
-        val query = scalikejdbc.SQL[Any](s"""CREATE DATABASE IF NOT EXISTS ${databaseSchema.value};""")
-        executeQuery(jdbcSettings.value, query){ (sql, session) =>
-          sql.execute().apply()(session)
-        }
-      },
-      TaskKey[Unit]("dropTestDatabase") := {
-        val query = scalikejdbc.SQL[Any](s"""DROP DATABASE IF EXISTS ${databaseSchema.value}""")
-        executeQuery(jdbcSettings.value, query){ (sql, session) =>
-          sql.execute().apply()(session)
-        }
-      },
       TaskKey[Unit]("checkGeneratedCode") := {
         val diff = "git diff".!!
         if(diff.nonEmpty){
@@ -75,7 +64,7 @@ object build extends Build {
   private def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(f: (SQL[A, NoExtractor], DBSession) => C): C = {
     try {
       Class.forName(jdbc.driver)
-      ConnectionPool.singleton("jdbc:mysql://localhost/test", jdbc.username, jdbc.password)
+      ConnectionPool.singleton(s"jdbc:mysql://$host/test", jdbc.username, jdbc.password)
       DB.autoCommit { session =>
         f(sql, session)
       }
@@ -116,7 +105,7 @@ object build extends Build {
     flywaySettings: _*
   ).settings(
     flywaySchemas := databaseSchema.value :: Nil,
-    flywayUrl := jdbcSettings.value.url,
+    flywayUrl := s"jdbc:mysql://$host",
     flywayUser := jdbcSettings.value.username,
     libraryDependencies ++= Seq(
       mysql
