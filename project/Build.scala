@@ -27,6 +27,7 @@ object build extends Build {
   private def generatorSettings(tables: Map[String, String], packageName: String) =
     SbtPlugin.scalikejdbcSettings ++ inConfig(Compile)(Seq(
       SbtKeys.scalikejdbcJDBCSettings := jdbcSettings.value,
+      SbtKeys.scalikejdbcGeneratorSettings := null,
       SbtKeys.scalikejdbcCodeGeneratorAll := { (jdbc, _) =>
         val config = GeneratorConfig(
           srcDir = scalaSource.value.getAbsolutePath,
