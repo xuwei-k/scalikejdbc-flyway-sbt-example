@@ -1,6 +1,5 @@
 import org.flywaydb.sbt.FlywayPlugin._
 import sbt._, Keys._
-import buildinfo.BuildInfo.scalikejdbcVersion
 import scalikejdbc._
 import scalikejdbc.mapper.SbtPlugin.JDBCSettings
 import scalikejdbc.mapper._
@@ -117,9 +116,8 @@ object build extends Build {
     generatorSettings(Map("users" -> "User"), "example.domain.generated"): _*
   ).settings(
     libraryDependencies ++= Seq(
-      "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion,
+      "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
       "com.typesafe.play" %% "play-json" % play.core.PlayVersion.current,
-      "org.scalikejdbc" %% "scalikejdbc" % buildinfo.BuildInfo.scalikejdbcVersion,
       mysql
     )
   )
