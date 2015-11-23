@@ -74,7 +74,8 @@ object build extends Build {
   }
 
   private val commonSettings = Seq[Def.Setting[_]](
-    scalaVersion := "2.11.6",
+    scalaVersion := "2.11.7",
+    fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
     databaseSchema <<= databaseSchema.??(defaultSchema),
     ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
@@ -88,13 +89,12 @@ object build extends Build {
       "-language:existentials"
     ),
     resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/releases/",
-    updateOptions ~= {_.withCachedResolution(true)},
     javacOptions ++= Seq("-encoding", "UTF-8", "-target", "7", "-source", "7"),
     javaOptions ++= sys.process.javaVmArguments.filter(
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "2.2.4" % "test"
+      "org.scalatest" %% "scalatest" % "2.2.5" % "test"
     )
   )
 
@@ -122,7 +122,7 @@ object build extends Build {
     )
   )
 
-  lazy val api = module("api").enablePlugins(play.PlayScala).settings(
+  lazy val api = module("api").enablePlugins(play.sbt.PlayScala).settings(
     libraryDependencies ++= Seq(
     )
   ).dependsOn(domain)

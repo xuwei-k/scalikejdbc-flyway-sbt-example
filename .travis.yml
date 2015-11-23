@@ -2,6 +2,14 @@ language: scala
 
 sudo: false
 
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
 before_script:
   - mysql -e "CREATE DATABASE test;" -uroot
 

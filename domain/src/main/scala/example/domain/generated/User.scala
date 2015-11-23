@@ -43,24 +43,24 @@ object User extends SQLSyntaxSupport[User] {
   }
 
   def countAll()(implicit session: DBSession): Long = {
-    withSQL(select(sqls"count(1)").from(User as u)).map(rs => rs.long(1)).single.apply().get
+    withSQL(select(sqls.count).from(User as u)).map(rs => rs.long(1)).single.apply().get
   }
 
   def findBy(where: SQLSyntax)(implicit session: DBSession): Option[User] = {
     withSQL {
-      select.from(User as u).where.append(sqls"${where}")
+      select.from(User as u).where.append(where)
     }.map(User(u.resultName)).single.apply()
   }
 
   def findAllBy(where: SQLSyntax)(implicit session: DBSession): List[User] = {
     withSQL {
-      select.from(User as u).where.append(sqls"${where}")
+      select.from(User as u).where.append(where)
     }.map(User(u.resultName)).list.apply()
   }
 
   def countBy(where: SQLSyntax)(implicit session: DBSession): Long = {
     withSQL {
-      select(sqls"count(1)").from(User as u).where.append(sqls"${where}")
+      select(sqls.count).from(User as u).where.append(where)
     }.map(_.long(1)).single.apply().get
   }
 
@@ -78,10 +78,24 @@ object User extends SQLSyntaxSupport[User] {
     }.updateAndReturnGeneratedKey.apply()
 
     User(
-      id = generatedKey.toInt, 
+      id = generatedKey.toInt,
       name = name,
       createdAt = createdAt)
   }
+
+  def batchInsert(entities: Seq[User])(implicit session: DBSession): Seq[Int] = {
+    val params: Seq[Seq[(Symbol, Any)]] = entities.map(entity =>
+      Seq(
+        'name -> entity.name,
+        'createdAt -> entity.createdAt))
+        SQL("""insert into users(
+        name,
+        created_at
+      ) values (
+        {name},
+        {createdAt}
+      )""").batchByName(params: _*).apply()
+    }
 
   def save(entity: User)(implicit session: DBSession): User = {
     withSQL {
