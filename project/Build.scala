@@ -89,7 +89,7 @@ object build extends Build {
       "-language:existentials"
     ),
     resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/releases/",
-    javacOptions ++= Seq("-encoding", "UTF-8", "-target", "7", "-source", "7"),
+    javacOptions ++= Seq("-encoding", "UTF-8"),
     javaOptions ++= sys.process.javaVmArguments.filter(
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
