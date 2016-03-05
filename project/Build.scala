@@ -4,6 +4,8 @@ import sbt._, Keys._
 import scalikejdbc._
 import scalikejdbc.mapper.SbtPlugin.JDBCSettings
 import scalikejdbc.mapper._
+import play.sbt.routes.RoutesKeys.routesGenerator
+import play.routes.compiler.StaticRoutesGenerator
 
 object build extends Build {
 
@@ -122,6 +124,7 @@ object build extends Build {
   )
 
   lazy val api = module("api").enablePlugins(play.sbt.PlayScala).settings(
+    routesGenerator := StaticRoutesGenerator,
     libraryDependencies ++= Seq(
     )
   ).dependsOn(domain)
