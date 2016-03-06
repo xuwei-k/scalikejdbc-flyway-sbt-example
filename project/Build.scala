@@ -1,4 +1,5 @@
-import org.flywaydb.sbt.FlywayPlugin._
+import org.flywaydb.sbt.FlywayPlugin
+import org.flywaydb.sbt.FlywayPlugin.autoImport._
 import sbt._, Keys._
 import scalikejdbc._
 import scalikejdbc.mapper.SbtPlugin.JDBCSettings
@@ -102,15 +103,13 @@ object build extends Build {
     Project(id, file(id)).settings(commonSettings: _*)
 
   lazy val migration = module("migration").settings(
-    flywaySettings: _*
-  ).settings(
     flywaySchemas := databaseSchema.value :: Nil,
     flywayUrl := s"jdbc:mysql://$host",
     flywayUser := jdbcSettings.value.username,
     libraryDependencies ++= Seq(
       mysql
     )
-  )
+  ).enablePlugins(FlywayPlugin)
 
   lazy val domain = module("domain").settings(
     generatorSettings(Map("users" -> "User"), "example.domain.generated"): _*
