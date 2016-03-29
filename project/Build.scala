@@ -97,7 +97,7 @@ object build extends Build {
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "2.2.5" % "test"
+      "org.scalatest" %% "scalatest" % "2.2.6" % "test"
     )
   )
 
