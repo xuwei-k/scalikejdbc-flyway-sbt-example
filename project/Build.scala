@@ -77,7 +77,7 @@ object build extends Build {
   }
 
   private val commonSettings = Seq[Def.Setting[_]](
-    scalaVersion := "2.11.7",
+    scalaVersion := "2.11.8",
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
     databaseSchema <<= databaseSchema.??(defaultSchema),
