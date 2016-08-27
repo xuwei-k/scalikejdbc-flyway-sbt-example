@@ -1,6 +1,4 @@
-buildInfoSettings
-
-sourceGenerators in Compile <+= buildInfo
+enablePlugins(BuildInfoPlugin)
 
 val mysqlDriverVersion = "5.1.38"
 
