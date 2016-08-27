@@ -1,21 +1,18 @@
-import org.flywaydb.sbt.FlywayPlugin
 import org.flywaydb.sbt.FlywayPlugin.autoImport._
 import sbt._, Keys._
 import scalikejdbc._
 import scalikejdbc.mapper.SbtPlugin.JDBCSettings
 import scalikejdbc.mapper._
-import play.sbt.routes.RoutesKeys.routesGenerator
-import play.routes.compiler.StaticRoutesGenerator
 
-object build extends Build {
+object build {
 
-  private val mysql = "mysql" % "mysql-connector-java" % buildinfo.BuildInfo.mysqlDriverVersion
+  val mysql = "mysql" % "mysql-connector-java" % buildinfo.BuildInfo.mysqlDriverVersion
 
   private val defaultSchema = "schema_" + System.currentTimeMillis
   val databaseSchema = SettingKey[String]("databaseSchema")
-  private val host = "localhost"
+  val host = "localhost"
 
-  private val jdbcSettings = Def.setting{
+  val jdbcSettings = Def.setting{
     val schema = databaseSchema.value
     SbtPlugin.JDBCSettings(
       driver = "com.mysql.jdbc.Driver",
@@ -26,7 +23,7 @@ object build extends Build {
     )
   }
 
-  private def generatorSettings(tables: Map[String, String], packageName: String) =
+  def generatorSettings(tables: Map[String, String], packageName: String) =
     SbtPlugin.scalikejdbcSettings ++ inConfig(Compile)(Seq(
       SbtKeys.scalikejdbcJDBCSettings := jdbcSettings.value,
       SbtKeys.scalikejdbcGeneratorSettings := null,
@@ -101,32 +98,6 @@ object build extends Build {
     )
   )
 
-  private def module(id: String): Project =
-    Project(id, file(id)).settings(commonSettings: _*)
-
-  lazy val migration = module("migration").settings(
-    flywaySchemas := databaseSchema.value :: Nil,
-    flywayUrl := s"jdbc:mysql://$host",
-    flywayUser := jdbcSettings.value.username,
-    libraryDependencies ++= Seq(
-      mysql
-    )
-  ).enablePlugins(FlywayPlugin)
-
-  lazy val domain = module("domain").settings(
-    generatorSettings(Map("users" -> "User"), "example.domain.generated"): _*
-  ).settings(
-    libraryDependencies ++= Seq(
-      "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
-      "com.typesafe.play" %% "play-json" % play.core.PlayVersion.current,
-      mysql
-    )
-  )
-
-  lazy val api = module("api").enablePlugins(play.sbt.PlayScala).settings(
-    routesGenerator := StaticRoutesGenerator,
-    libraryDependencies ++= Seq(
-    )
-  ).dependsOn(domain)
-
+  def module(id: String): Project =
+    Project(id, file(id)).settings(commonSettings)
 }
