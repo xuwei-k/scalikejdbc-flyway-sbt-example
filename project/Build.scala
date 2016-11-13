@@ -77,7 +77,7 @@ object build {
     scalaVersion := "2.11.8",
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
-    databaseSchema <<= databaseSchema.??(defaultSchema),
+    databaseSchema := databaseSchema.??(defaultSchema).value,
     ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
     scalacOptions ++= Seq(
       "-deprecation",
