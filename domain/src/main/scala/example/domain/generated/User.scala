@@ -10,7 +10,7 @@ case class User(
 
   def save()(implicit session: DBSession): User = User.save(this)(session)
 
-  def destroy()(implicit session: DBSession): Unit = User.destroy(this)(session)
+  def destroy()(implicit session: DBSession): Int = User.destroy(this)(session)
 
 }
 
@@ -68,12 +68,9 @@ object User extends SQLSyntaxSupport[User] {
     name: String,
     createdAt: DateTime)(implicit session: DBSession): User = {
     val generatedKey = withSQL {
-      insert.into(User).columns(
-        column.name,
-        column.createdAt
-      ).values(
-        name,
-        createdAt
+      insert.into(User).namedValues(
+        column.name -> name,
+        column.createdAt -> createdAt
       )
     }.updateAndReturnGeneratedKey.apply()
 
@@ -83,19 +80,19 @@ object User extends SQLSyntaxSupport[User] {
       createdAt = createdAt)
   }
 
-  def batchInsert(entities: Seq[User])(implicit session: DBSession): Seq[Int] = {
+  def batchInsert(entities: Seq[User])(implicit session: DBSession): List[Int] = {
     val params: Seq[Seq[(Symbol, Any)]] = entities.map(entity =>
       Seq(
         'name -> entity.name,
         'createdAt -> entity.createdAt))
-        SQL("""insert into users(
-        name,
-        created_at
-      ) values (
-        {name},
-        {createdAt}
-      )""").batchByName(params: _*).apply()
-    }
+    SQL("""insert into users(
+      name,
+      created_at
+    ) values (
+      {name},
+      {createdAt}
+    )""").batchByName(params: _*).apply[List]()
+  }
 
   def save(entity: User)(implicit session: DBSession): User = {
     withSQL {
@@ -108,7 +105,7 @@ object User extends SQLSyntaxSupport[User] {
     entity
   }
 
-  def destroy(entity: User)(implicit session: DBSession): Unit = {
+  def destroy(entity: User)(implicit session: DBSession): Int = {
     withSQL { delete.from(User).where.eq(column.id, entity.id) }.update.apply()
   }
 

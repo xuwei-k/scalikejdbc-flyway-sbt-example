@@ -7,6 +7,9 @@ lazy val migration = module("migration").settings(
   flywaySchemas := databaseSchema.value :: Nil,
   flywayUrl := s"jdbc:mysql://$host",
   flywayUser := jdbcSettings.value.username,
+  flywayLocations := {
+    ("filesystem:" + ((resourceDirectory in Compile).value / "db/migration").getCanonicalPath) :: Nil
+  },
   libraryDependencies ++= Seq(
     mysql
   )

@@ -2,6 +2,6 @@ scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.9")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.13")
 
 fullResolvers ~= {_.filterNot(_.name == "jcenter")}
