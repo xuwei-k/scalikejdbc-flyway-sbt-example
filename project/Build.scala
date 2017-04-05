@@ -76,7 +76,7 @@ object build {
   private val commonSettings = Seq[Def.Setting[_]](
     scalaVersion := "2.11.8",
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
-    licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
+    licenses := Seq("public domain" -> url("https://raw.githubusercontent.com/xuwei-k/scalikejdbc-flyway-sbt-example/master/LICENSE")),
     databaseSchema := databaseSchema.??(defaultSchema).value,
     ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
     scalacOptions ++= Seq(
