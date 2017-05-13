@@ -74,7 +74,7 @@ object build {
   }
 
   private val commonSettings = Seq[Def.Setting[_]](
-    scalaVersion := "2.11.8",
+    scalaVersion := "2.11.11",
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     licenses := Seq("public domain" -> url("https://raw.githubusercontent.com/xuwei-k/scalikejdbc-flyway-sbt-example/master/LICENSE")),
     databaseSchema := databaseSchema.??(defaultSchema).value,
@@ -94,7 +94,7 @@ object build {
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+      "org.scalatest" %% "scalatest" % "3.0.3" % "test"
     )
   )
 

@@ -1,6 +1,6 @@
 enablePlugins(BuildInfoPlugin)
 
-val mysqlDriverVersion = "5.1.41"
+val mysqlDriverVersion = "5.1.42"
 
 buildInfoKeys := Seq[BuildInfoKey](
   "mysqlDriverVersion" -> mysqlDriverVersion
