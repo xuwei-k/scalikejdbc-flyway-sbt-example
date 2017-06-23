@@ -33,7 +33,8 @@ object build {
           testTemplate = GeneratorTestTemplate(""),
           packageName = packageName,
           caseClassOnly = true,
-          defaultAutoSession = false
+          defaultAutoSession = false,
+          dateTimeClass = DateTimeClass.OffsetDateTime
         )
         try {
           Class.forName(jdbc.driver)
@@ -74,7 +75,7 @@ object build {
   }
 
   private val commonSettings = Seq[Def.Setting[_]](
-    scalaVersion := "2.11.11",
+    scalaVersion := "2.12.2",
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     licenses := Seq("public domain" -> url("https://raw.githubusercontent.com/xuwei-k/scalikejdbc-flyway-sbt-example/master/LICENSE")),
     databaseSchema := databaseSchema.??(defaultSchema).value,

@@ -1,12 +1,12 @@
 package example.domain.generated
 
 import scalikejdbc._
-import org.joda.time.{DateTime}
+import java.time.{OffsetDateTime}
 
 case class User(
   id: Int,
   name: String,
-  createdAt: DateTime) {
+  createdAt: OffsetDateTime) {
 
   def save()(implicit session: DBSession): User = User.save(this)(session)
 
@@ -66,7 +66,7 @@ object User extends SQLSyntaxSupport[User] {
 
   def create(
     name: String,
-    createdAt: DateTime)(implicit session: DBSession): User = {
+    createdAt: OffsetDateTime)(implicit session: DBSession): User = {
     val generatedKey = withSQL {
       insert.into(User).namedValues(
         column.name -> name,

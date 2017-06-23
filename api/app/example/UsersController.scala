@@ -1,18 +1,19 @@
 package example
 
 import example.domain.generated.User
-import org.joda.time.DateTime
+import java.time.OffsetDateTime
 import play.api.libs.json._
 import play.api.mvc._
 import play.api.libs.functional.syntax._
 import scalikejdbc._
+import javax.inject.Inject
 
-object UsersController extends Controller {
+class UsersController @Inject()(c: ControllerComponents) extends AbstractController(c) {
 
   private[this] implicit val userWrites: OWrites[User] = (
     (__ \ "id").write[Int] and
     (__ \ "name").write[String] and
-    (__ \ "created_at").write[DateTime]
+    (__ \ "created_at").write[OffsetDateTime]
   )(Function.unlift(User.unapply))
 
 
@@ -39,7 +40,7 @@ object UsersController extends Controller {
 
   def put(name: String) = Action {
     val user = DB.localTx { implicit session =>
-      User.create(name, DateTime.now)
+      User.create(name, OffsetDateTime.now)
     }
     Created(Json.toJson(user))
   }

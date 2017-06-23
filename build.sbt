@@ -1,7 +1,5 @@
 import build._
 import org.flywaydb.sbt.FlywayPlugin
-import play.sbt.routes.RoutesKeys.routesGenerator
-import play.routes.compiler.StaticRoutesGenerator
 
 lazy val migration = module("migration").settings(
   flywaySchemas := databaseSchema.value :: Nil,
@@ -20,13 +18,13 @@ lazy val domain = module("domain").settings(
 ).settings(
   libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
-    "com.typesafe.play" %% "play-json" % play.core.PlayVersion.current,
+    "com.typesafe.play" %% "play-json" % "2.6.2",
     mysql
   )
 )
 
 lazy val api = module("api").enablePlugins(play.sbt.PlayScala).settings(
-  routesGenerator := StaticRoutesGenerator,
   libraryDependencies ++= Seq(
+    guice
   )
 ).dependsOn(domain)
