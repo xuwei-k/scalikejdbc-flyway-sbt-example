@@ -18,7 +18,7 @@ lazy val domain = module("domain").settings(
 ).settings(
   libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
-    "com.typesafe.play" %% "play-json" % "2.6.2",
+    "com.typesafe.play" %% "play-json" % "2.6.5",
     mysql
   )
 )

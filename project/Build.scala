@@ -1,8 +1,8 @@
 import org.flywaydb.sbt.FlywayPlugin.autoImport._
 import sbt._, Keys._
-import scalikejdbc._
-import scalikejdbc.mapper.SbtPlugin.JDBCSettings
+import scalikejdbc.{JDBCSettings => _, _}
 import scalikejdbc.mapper._
+import scalikejdbc.mapper.ScalikejdbcPlugin.autoImport._
 
 object build {
 
@@ -14,7 +14,7 @@ object build {
 
   val jdbcSettings = Def.setting{
     val schema = databaseSchema.value
-    SbtPlugin.JDBCSettings(
+    JDBCSettings(
       driver = "com.mysql.jdbc.Driver",
       url = s"jdbc:mysql://$host/$schema",
       username = "root",
@@ -24,10 +24,10 @@ object build {
   }
 
   def generatorSettings(tables: Map[String, String], packageName: String) =
-    SbtPlugin.scalikejdbcSettings ++ inConfig(Compile)(Seq(
-      SbtKeys.scalikejdbcJDBCSettings := jdbcSettings.value,
-      SbtKeys.scalikejdbcGeneratorSettings := null,
-      SbtKeys.scalikejdbcCodeGeneratorAll := { (jdbc, _) =>
+    ScalikejdbcPlugin.projectSettings ++ inConfig(Compile)(Seq(
+      scalikejdbcJDBCSettings := jdbcSettings.value,
+      scalikejdbcGeneratorSettings := null,
+      scalikejdbcCodeGeneratorAll := { (jdbc, _) =>
         val config = GeneratorConfig(
           srcDir = scalaSource.value.getAbsolutePath,
           testTemplate = GeneratorTestTemplate(""),
@@ -95,7 +95,7 @@ object build {
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.0.3" % "test"
+      "org.scalatest" %% "scalatest" % "3.0.4" % "test"
     )
   )
 
