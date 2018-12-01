@@ -1,1 +1,1 @@
-alias migrate=;migration/flywayMigrate; scalikejdbcGenAllForce; migration/flywayClean; showDatabases
+alias migrate=;flywayMigrate; scalikejdbcGenAllForce; flywayClean; showDatabases

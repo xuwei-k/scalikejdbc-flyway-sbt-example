@@ -80,8 +80,8 @@ object User extends SQLSyntaxSupport[User] {
       createdAt = createdAt)
   }
 
-  def batchInsert(entities: Seq[User])(implicit session: DBSession): List[Int] = {
-    val params: Seq[Seq[(Symbol, Any)]] = entities.map(entity =>
+  def batchInsert(entities: collection.Seq[User])(implicit session: DBSession): List[Int] = {
+    val params: collection.Seq[Seq[(Symbol, Any)]] = entities.map(entity =>
       Seq(
         'name -> entity.name,
         'createdAt -> entity.createdAt))

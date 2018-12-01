@@ -7,7 +7,7 @@ import scala.concurrent.Future
 import scalikejdbc.ConnectionPool
 
 @Singleton
-class PlayInitializer @Inject() (
+class PlayInitializer @Inject()(
     lifecycle: ApplicationLifecycle
 ) {
 

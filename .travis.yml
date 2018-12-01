@@ -1,17 +1,10 @@
 language: scala
-
 sudo: false
-
 jdk:
-  - oraclejdk8
-
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-
+- oraclejdk8
+- openjdk11
 before_script:
-  - mysql -e "CREATE DATABASE test;" -uroot
-
+- mysql -e "CREATE DATABASE test;" -uroot
+- unset _JAVA_OPTIONS
 script:
-  - sbt migrate domain/checkGeneratedCode compile test
+- sbt scalafmtCheck scalafmtSbtCheck test:scalafmtCheck migrate domain/checkGeneratedCode compile test

@@ -12,13 +12,12 @@ class UsersController @Inject()(c: ControllerComponents) extends AbstractControl
 
   private[this] implicit val userWrites: OWrites[User] = (
     (__ \ "id").write[Int] and
-    (__ \ "name").write[String] and
-    (__ \ "created_at").write[OffsetDateTime]
+      (__ \ "name").write[String] and
+      (__ \ "created_at").write[OffsetDateTime]
   )(Function.unlift(User.unapply))
 
-
-  val index = Action{
-    val users = DB.localTx{ implicit session =>
+  val index = Action {
+    val users = DB.localTx { implicit session =>
       User.findAll()
     }
     val json = JsArray(users.map(Json.toJson[User]))
@@ -45,7 +44,7 @@ class UsersController @Inject()(c: ControllerComponents) extends AbstractControl
     Created(Json.toJson(user))
   }
 
-  def delete(name: String) = Action{
+  def delete(name: String) = Action {
     DB.localTx { implicit session =>
       withSQL {
         scalikejdbc.delete.from(User).where.eq(User.column.name, name)
