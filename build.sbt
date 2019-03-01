@@ -108,7 +108,7 @@ val commonSettings = Def.settings(
       a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
     ),
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.6" % "test"
   )
 )
 
