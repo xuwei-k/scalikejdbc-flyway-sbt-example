@@ -9,7 +9,7 @@ buildInfoKeys := Seq[BuildInfoKey](
   "mysqlDriverVersion" -> mysqlDriverVersion
 )
 
-addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "3.3.3")
+addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "3.3.4")
 libraryDependencies += "mysql" % "mysql-connector-java" % mysqlDriverVersion
 
 addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "1.6.0-RC4")
