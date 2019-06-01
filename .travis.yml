@@ -1,8 +1,10 @@
 language: scala
 sudo: false
-dist: trusty
+dist: xenial
+services:
+  - mysql
 jdk:
-- oraclejdk8
+- openjdk8
 - openjdk11
 before_script:
 - mysql -e "CREATE DATABASE test;" -uroot
