@@ -11,7 +11,7 @@ val host = "localhost"
 val jdbcSettings = Def.setting {
   val schema = databaseSchema.value
   JDBCSettings(
-    driver = "com.mysql.jdbc.Driver",
+    driver = "com.mysql.cj.jdbc.Driver",
     url = s"jdbc:mysql://$host/$schema",
     username = "root",
     password = "",
