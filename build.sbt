@@ -85,7 +85,7 @@ def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(
 }
 
 val commonSettings = Def.settings(
-  scalaVersion := "2.13.0",
+  scalaVersion := "2.13.1",
   fork in run := true,
   licenses := Seq(
     "public domain" -> url(
@@ -134,8 +134,8 @@ lazy val domain = module("domain")
     },
     libraryDependencies ++= Seq(
       "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
-      "com.typesafe.play" %% "play-json" % "2.7.4",
-      "org.flywaydb" % "flyway-core" % "6.0.8" % "test",
+      "com.typesafe.play" %% "play-json" % "2.8.0",
+      "org.flywaydb" % "flyway-core" % "6.1.0" % "test",
       mysql
     )
   )
