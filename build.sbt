@@ -104,9 +104,7 @@ val commonSettings = Def.settings(
   ),
   javacOptions ++= Seq("-encoding", "UTF-8"),
   javaOptions ++= ManagementFactory.getRuntimeMXBean.getInputArguments.asScala.toList
-    .filter(
-      a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)
-    ),
+    .filter(a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)),
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.0" % "test"
   )
