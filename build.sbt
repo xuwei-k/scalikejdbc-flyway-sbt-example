@@ -127,8 +127,8 @@ lazy val domain = module("domain")
       "flyway.user" -> jdbcSettings.value.username,
       "flyway.password" -> jdbcSettings.value.password,
       "flyway.location" -> ("filesystem:" + file("sql").getCanonicalPath)
-    ).map {
-      case (key, value) => s"-D$key=$value"
+    ).map { case (key, value) =>
+      s"-D$key=$value"
     },
     libraryDependencies ++= Seq(
       "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
