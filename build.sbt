@@ -85,7 +85,7 @@ def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(
 }
 
 val commonSettings = Def.settings(
-  scalaVersion := "2.13.4",
+  scalaVersion := "2.13.6",
   fork in run := true,
   licenses := Seq(
     "public domain" -> url(
