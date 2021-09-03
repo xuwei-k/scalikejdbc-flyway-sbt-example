@@ -1,4 +1,5 @@
 import scalikejdbc.{JDBCSettings => _, _}
+
 import scalikejdbc.mapper._
 import scala.collection.JavaConverters._
 import java.lang.management.ManagementFactory
