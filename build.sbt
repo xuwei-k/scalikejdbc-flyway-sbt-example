@@ -86,7 +86,7 @@ def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(
 
 val commonSettings = Def.settings(
   scalaVersion := "2.13.6",
-  fork in run := true,
+  run / fork := true,
   licenses := Seq(
     "public domain" -> url(
       "https://raw.githubusercontent.com/xuwei-k/scalikejdbc-flyway-sbt-example/master/LICENSE"
@@ -121,7 +121,7 @@ lazy val domain = module("domain")
     generatorSettings(Map("users" -> "User"), "example.domain.generated")
   )
   .settings(
-    javaOptions in Test ++= Seq(
+    Test / javaOptions ++= Seq(
       "flyway.schema" -> databaseSchema.value,
       "flyway.url" -> s"jdbc:mysql://$host",
       "flyway.user" -> jdbcSettings.value.username,
