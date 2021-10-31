@@ -29,7 +29,6 @@ def generatorSettings(tables: Map[String, String], packageName: String) =
           srcDir = scalaSource.value.getAbsolutePath,
           testTemplate = GeneratorTestTemplate(""),
           packageName = packageName,
-          caseClassOnly = true,
           defaultAutoSession = false,
           dateTimeClass = DateTimeClass.OffsetDateTime
         )
@@ -55,7 +54,7 @@ def generatorSettings(tables: Map[String, String], packageName: String) =
       val query = scalikejdbc.SQL[Any]("""SHOW DATABASES;""")
       executeQuery(jdbcSettings.value, query) { (sql, session) =>
         implicit val s = session
-        sql.map(_.string(1)).list().apply().foreach(println)
+        sql.map(_.string(1)).list.apply.foreach(println)
       }
     },
     TaskKey[Unit]("checkGeneratedCode") := {
@@ -85,6 +84,7 @@ def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(
 }
 
 val commonSettings = Def.settings(
+  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   scalaVersion := "2.13.6",
   run / fork := true,
   licenses := Seq(
