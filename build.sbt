@@ -3,7 +3,7 @@ import scalikejdbc.mapper._
 import scala.collection.JavaConverters._
 import java.lang.management.ManagementFactory
 
-val mysql = "mysql" % "mysql-connector-java" % buildinfo.BuildInfo.mysqlDriverVersion
+val mysql = "com.mysql" % "mysql-connector-j" % buildinfo.BuildInfo.mysqlDriverVersion
 val defaultSchema = "schema_" + System.currentTimeMillis
 val databaseSchema = SettingKey[String]("databaseSchema")
 val host = "localhost"
