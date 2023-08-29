@@ -12,7 +12,7 @@ buildInfoKeys := Seq[BuildInfoKey](
 addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "4.0.0")
 libraryDependencies += "com.mysql" % "mysql-connector-j" % mysqlDriverVersion
 
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.0")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.1")
 
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always"
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % "always"
