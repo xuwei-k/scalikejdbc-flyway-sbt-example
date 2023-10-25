@@ -99,7 +99,6 @@ val commonSettings = Def.settings(
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-language:higherKinds",
     "-language:existentials"
   ),
   javacOptions ++= Seq("-encoding", "UTF-8"),
