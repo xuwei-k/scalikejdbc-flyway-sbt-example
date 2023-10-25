@@ -14,7 +14,7 @@ class UsersController @Inject() (c: ControllerComponents) extends AbstractContro
     (__ \ "id").write[Int] and
       (__ \ "name").write[String] and
       (__ \ "created_at").write[OffsetDateTime]
-  )(Function.unlift(User.unapply))
+  )(Tuple.fromProductTyped[User])
 
   val index = Action {
     val users = DB.localTx { implicit session =>
