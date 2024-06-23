@@ -105,7 +105,7 @@ val commonSettings = Def.settings(
   javaOptions ++= ManagementFactory.getRuntimeMXBean.getInputArguments.asScala.toList
     .filter(a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith)),
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.2.18" % "test"
+    "org.scalatest" %% "scalatest" % "3.2.19" % "test"
   )
 )
 
