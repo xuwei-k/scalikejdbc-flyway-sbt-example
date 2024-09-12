@@ -132,7 +132,7 @@ lazy val domain = module("domain")
     libraryDependencies ++= Seq(
       "org.scalikejdbc" %% "scalikejdbc" % scalikejdbc.ScalikejdbcBuildInfo.version,
       "org.playframework" %% "play-json" % "3.0.4",
-      "org.flywaydb" % "flyway-core" % "10.17.3" % "test",
+      "org.flywaydb" % "flyway-core" % "10.18.0" % "test",
       mysql
     )
   )
