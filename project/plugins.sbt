@@ -3,7 +3,7 @@ scalacOptions ++= Seq("-deprecation", "-unchecked")
 addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.5")
 enablePlugins(BuildInfoPlugin)
 
-val mysqlDriverVersion = "9.0.0"
+val mysqlDriverVersion = "9.1.0"
 
 buildInfoKeys := Seq[BuildInfoKey](
   "mysqlDriverVersion" -> mysqlDriverVersion
