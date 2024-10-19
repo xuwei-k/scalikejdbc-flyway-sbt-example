@@ -85,7 +85,7 @@ def executeQuery[A, C](jdbc: JDBCSettings, sql: SQL[A, NoExtractor])(
 
 val commonSettings = Def.settings(
   libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
-  scalaVersion := "3.6.0",
+  scalaVersion := "3.6.1",
   run / fork := true,
   licenses := Seq(
     "public domain" -> url(
