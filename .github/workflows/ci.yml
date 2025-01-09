@@ -16,6 +16,7 @@ jobs:
       with:
         java-version: 11
         distribution: adopt
+    - uses: sbt/setup-sbt@v1
     - uses: coursier/cache-action@v6
     # TODO run `migrate domain/checkGeneratedCode`
     - run: sbt scalafmtCheckAll scalafmtSbtCheck compile test
