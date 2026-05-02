@@ -6,7 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import play.api.libs.functional.syntax._
 import scalikejdbc._
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class UsersController @Inject() (c: ControllerComponents) extends AbstractController(c) {
 

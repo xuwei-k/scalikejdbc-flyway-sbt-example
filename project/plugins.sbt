@@ -1,6 +1,6 @@
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
-addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.10")
+addSbtPlugin("org.playframework" % "sbt-plugin" % "3.1.0-M9")
 enablePlugins(BuildInfoPlugin)
 
 val mysqlDriverVersion = "9.7.0"
