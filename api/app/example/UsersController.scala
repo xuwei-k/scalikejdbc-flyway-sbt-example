@@ -10,7 +10,7 @@ import jakarta.inject.Inject
 
 class UsersController @Inject() (c: ControllerComponents) extends AbstractController(c) {
 
-  private[this] implicit val userWrites: OWrites[User] = (
+  private implicit val userWrites: OWrites[User] = (
     (__ \ "id").write[Int] and
       (__ \ "name").write[String] and
       (__ \ "created_at").write[OffsetDateTime]
@@ -24,7 +24,7 @@ class UsersController @Inject() (c: ControllerComponents) extends AbstractContro
     Ok(json)
   }
 
-  private[this] final val result = "result"
+  private final val result = "result"
 
   def get(name: String) =
     Action {
