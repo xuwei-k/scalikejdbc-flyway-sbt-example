@@ -105,8 +105,8 @@ val commonSettings = Def.settings(
     .filter(a => Seq("-Xmx", "-Xms", "-XX", "-Xss").exists(a.startsWith))
 )
 
-addCommandAlias("flywayMigrate", "domain/test:runMain FlywayMigrate migrate")
-addCommandAlias("flywayClean", "domain/test:runMain FlywayMigrate clean")
+addCommandAlias("flywayMigrate", "domain/Test/runMain FlywayMigrate migrate")
+addCommandAlias("flywayClean", "domain/Test/runMain FlywayMigrate clean")
 
 def module(id: String): Project =
   Project(id, file(id)).settings(commonSettings)
