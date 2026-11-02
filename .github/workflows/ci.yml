@@ -17,6 +17,6 @@ jobs:
         java-version: 17
         distribution: temurin
     - uses: sbt/setup-sbt@v1
-    - uses: coursier/cache-action@v8
+    - uses: coursier/cache-action@v9
     # TODO run `migrate domain/checkGeneratedCode`
     - run: sbt scalafmtCheckAll scalafmtSbtCheck compile test
